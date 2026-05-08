@@ -3,748 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMD Luxe — Premium Men's Accessories</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<title>SMD Luxe — Automated Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <style>
+/* CSS: আপনার ওয়েবসাইটের ডিজাইন */
 * { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --blue:#1565C0; --blue-light:#1E88E5; --blue-dark:#0D47A1;
-  --white:#FFFFFF; --gray:#F5F7FA; --text:#1a1a2e; --muted:#5a6a85;
-}
-body { font-family:'Lato',sans-serif; color:var(--text); background:var(--white); }
-
-/* NAV */
-nav {
-  background:var(--blue-dark); padding:0 40px;
-  display:flex; align-items:center; justify-content:space-between;
-  height:64px; position:sticky; top:0; z-index:200;
-}
-.logo { font-family:'Playfair Display',serif; color:white; font-size:24px; letter-spacing:2px; cursor:pointer; }
+:root { --blue:#1565C0; --blue-dark:#0D47A1; --gray:#F5F7FA; }
+body { font-family:'Lato', sans-serif; background:var(--white); color:#333; }
+nav { background:var(--blue-dark); color:white; padding:15px 40px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+.logo { font-family:'Playfair Display', serif; font-size:24px; cursor:pointer; }
 .logo span { color:#90CAF9; }
-nav ul { list-style:none; display:flex; gap:28px; }
-nav ul li a { color:#B3D4FF; text-decoration:none; font-size:14px; letter-spacing:1px; text-transform:uppercase; transition:color 0.2s; cursor:pointer; }
-nav ul li a:hover { color:white; }
-.cart-btn {
-  background:var(--blue-light); color:white; border:none;
-  padding:8px 18px; border-radius:4px; font-size:13px; cursor:pointer; letter-spacing:1px;
-}
-.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
-.hamburger span { width:24px; height:2px; background:white; border-radius:2px; }
+.hero { background: linear-gradient(135deg, #0D47A1, #1565C0); color:white; padding:80px 20px; text-align:center; }
+.container { max-width: 1000px; margin: auto; padding: 40px 20px; }
+.section-title { text-align:center; font-family:'Playfair Display'; font-size:32px; margin-bottom:30px; }
 
-/* MARQUEE */
-.marquee-bar { background:var(--blue-light); color:white; padding:10px 0; overflow:hidden; white-space:nowrap; font-size:13px; letter-spacing:2px; text-transform:uppercase; }
-.marquee-inner { display:inline-block; animation:marquee 20s linear infinite; }
-@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+/* Product Grid */
+.prod-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:25px; }
+.prod-card { border:1px solid #ddd; border-radius:12px; overflow:hidden; transition: 0.3s; background:white; }
+.prod-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+.prod-img { height:180px; background:#E3F2FD; display:flex; align-items:center; justify-content:center; font-size:50px; position:relative; }
+.prod-info { padding:20px; }
+.price { font-size:20px; font-weight:700; color:var(--blue-dark); }
+.add-btn { background:var(--blue); color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; font-weight:700; }
+.add-btn:disabled { background:#ccc; cursor:not-allowed; }
 
-/* PAGES */
-.page { display:none; }
-.page.active { display:block; }
-
-/* HERO */
-.hero {
-  background:linear-gradient(135deg,#0D47A1 0%,#1565C0 50%,#1976D2 100%);
-  color:white; padding:100px 40px; text-align:center; position:relative; overflow:hidden;
-}
-.hero h1 { font-family:'Playfair Display',serif; font-size:54px; line-height:1.15; margin-bottom:18px; }
-.hero h1 span { color:#90CAF9; }
-.hero p { font-size:18px; color:#BBDEFB; margin-bottom:36px; font-weight:300; }
-.hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
-.btn-primary { background:white; color:var(--blue-dark); padding:14px 36px; border:none; border-radius:4px; font-size:15px; font-weight:700; cursor:pointer; letter-spacing:1px; text-decoration:none; display:inline-block; transition:transform 0.2s; }
-.btn-primary:hover { transform:translateY(-2px); }
-.btn-outline { background:transparent; color:white; padding:14px 36px; border:2px solid rgba(255,255,255,0.5); border-radius:4px; font-size:15px; cursor:pointer; letter-spacing:1px; text-decoration:none; display:inline-block; transition:border-color 0.2s; }
-.btn-outline:hover { border-color:white; }
-
-/* CATEGORIES */
-.categories { padding:70px 40px; background:var(--gray); text-align:center; }
-.section-title { font-family:'Playfair Display',serif; font-size:34px; margin-bottom:8px; color:var(--blue-dark); }
-.section-sub { color:var(--muted); margin-bottom:40px; font-size:15px; }
-.cat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; max-width:900px; margin:0 auto; }
-.cat-card { background:white; border-radius:12px; padding:28px 16px 20px; cursor:pointer; border:2px solid transparent; transition:all 0.25s; text-align:center; }
-.cat-card:hover { border-color:var(--blue-light); transform:translateY(-5px); box-shadow:0 10px 28px rgba(21,101,192,0.15); }
-.cat-icon { font-size:38px; margin-bottom:12px; }
-.cat-name { font-size:13px; font-weight:700; color:var(--blue-dark); text-transform:uppercase; letter-spacing:1px; }
-
-/* PRODUCTS GRID */
-.products { padding:70px 40px; background:white; }
-.products .section-title { text-align:center; }
-.products .section-sub { text-align:center; }
-.prod-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:980px; margin:40px auto 0; }
-.prod-card { border:1px solid #E3EAF5; border-radius:12px; overflow:hidden; transition:all 0.25s; background:white; }
-.prod-card:hover { transform:translateY(-5px); box-shadow:0 14px 36px rgba(21,101,192,0.12); }
-.prod-img { height:190px; background:linear-gradient(135deg,#E3F2FD,#BBDEFB); display:flex; align-items:center; justify-content:center; font-size:60px; position:relative; }
-.badge { position:absolute; top:12px; left:12px; background:var(--blue-dark); color:white; font-size:11px; padding:4px 10px; border-radius:20px; font-weight:700; letter-spacing:1px; }
-.badge.sale { background:#c62828; }
-.badge.soldout { background:#555; }
-.prod-info { padding:18px; }
-.prod-name { font-weight:700; font-size:16px; margin-bottom:4px; color:var(--text); }
-.prod-sub { font-size:13px; color:var(--muted); margin-bottom:14px; }
-.prod-footer { display:flex; align-items:center; justify-content:space-between; }
-.price { font-size:19px; font-weight:700; color:var(--blue-dark); }
-.add-btn { background:var(--blue); color:white; border:none; padding:9px 18px; border-radius:6px; font-size:13px; cursor:pointer; font-weight:700; transition:background 0.2s; }
-.add-btn:hover { background:var(--blue-dark); }
-.add-btn:disabled { background:#aaa; cursor:not-allowed; }
-
-/* WHY */
-.why { background:var(--gray); padding:70px 40px; text-align:center; }
-.why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:900px; margin:40px auto 0; }
-.why-card { background:white; border-radius:12px; padding:28px 20px; border:1px solid #E3EAF5; }
-.why-icon { font-size:34px; margin-bottom:12px; }
-.why-title { font-weight:700; font-size:14px; color:var(--blue-dark); margin-bottom:6px; text-transform:uppercase; letter-spacing:1px; }
-.why-text { font-size:13px; color:var(--muted); line-height:1.6; }
-
-/* BANNER */
-.banner { background:var(--blue-dark); color:white; padding:60px 40px; text-align:center; }
-.banner h2 { font-family:'Playfair Display',serif; font-size:32px; margin-bottom:12px; }
-.banner p { color:#90CAF9; margin-bottom:28px; font-size:16px; }
-
-/* CONTACT */
-.contact { padding:70px 40px; background:white; text-align:center; }
-.contact-info { display:flex; gap:24px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
-.contact-card { background:var(--gray); border-radius:12px; padding:28px 36px; min-width:200px; }
-.contact-card .icon { font-size:30px; margin-bottom:10px; }
-.contact-card .label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
-.contact-card .value { font-size:16px; font-weight:700; color:var(--blue-dark); }
-
-/* FOOTER */
-footer { background:#07234A; color:#90CAF9; padding:50px 40px 30px; text-align:center; }
-.footer-logo { font-family:'Playfair Display',serif; font-size:28px; color:white; margin-bottom:10px; }
-footer p { font-size:13px; margin-bottom:6px; line-height:1.8; }
-.footer-links { display:flex; justify-content:center; gap:28px; margin:20px 0; flex-wrap:wrap; }
-.footer-links a { color:#90CAF9; text-decoration:none; font-size:14px; transition:color 0.2s; }
-.footer-links a:hover { color:white; }
-.footer-divider { border:none; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0; }
-
-/* CATEGORY PAGE */
-.cat-page-header { background:linear-gradient(135deg,#0D47A1,#1565C0); color:white; padding:60px 40px; text-align:center; }
-.cat-page-header h1 { font-family:'Playfair Display',serif; font-size:42px; margin-bottom:8px; }
-.cat-page-header p { color:#BBDEFB; font-size:16px; }
-.back-btn { display:inline-flex; align-items:center; gap:8px; margin:30px 40px 0; background:var(--gray); border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-size:14px; font-weight:700; color:var(--blue-dark); transition:background 0.2s; }
-.back-btn:hover { background:#e0e7f0; }
-
-/* ORDER MODAL */
-.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:500; align-items:center; justify-content:center; }
+/* Modal */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200; align-items:center; justify-content:center; }
 .modal-overlay.open { display:flex; }
-.modal { background:white; border-radius:16px; padding:36px; width:90%; max-width:480px; max-height:90vh; overflow-y:auto; position:relative; }
-.modal h2 { font-family:'Playfair Display',serif; color:var(--blue-dark); margin-bottom:6px; font-size:24px; }
-.modal .prod-preview { display:flex; align-items:center; gap:14px; background:var(--gray); border-radius:10px; padding:14px; margin:16px 0; }
-.modal .prod-preview .emoji { font-size:40px; }
-.modal .prod-preview .info { flex:1; }
-.modal .prod-preview .info .name { font-weight:700; font-size:16px; }
-.modal .prod-preview .info .sub { font-size:13px; color:var(--muted); }
-.modal label { display:block; font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:16px 0 6px; }
-.modal input, .modal select, .modal textarea {
-  width:100%; padding:12px 14px; border:1.5px solid #E3EAF5; border-radius:8px;
-  font-size:15px; font-family:'Lato',sans-serif; transition:border 0.2s;
-}
-.modal input:focus, .modal select:focus, .modal textarea:focus { outline:none; border-color:var(--blue-light); }
-.qty-row { display:flex; align-items:center; gap:12px; }
-.qty-btn { width:38px; height:38px; border:2px solid var(--blue); background:white; color:var(--blue); border-radius:8px; font-size:20px; cursor:pointer; font-weight:700; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
-.qty-btn:hover { background:var(--blue); color:white; }
-.qty-val { font-size:20px; font-weight:700; min-width:30px; text-align:center; }
-.coupon-row { display:flex; gap:8px; }
-.coupon-row input { flex:1; }
-.coupon-btn { background:var(--blue); color:white; border:none; padding:0 18px; border-radius:8px; cursor:pointer; font-weight:700; white-space:nowrap; }
-.coupon-msg { font-size:13px; margin-top:6px; }
-.coupon-msg.ok { color:#2e7d32; }
-.coupon-msg.err { color:#c62828; }
-.price-summary { background:var(--gray); border-radius:10px; padding:16px; margin:16px 0; }
-.price-row { display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px; }
-.price-row.total { font-weight:700; font-size:18px; color:var(--blue-dark); border-top:1px solid #dde4f0; padding-top:10px; margin-top:6px; }
-.payment-opts { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:8px; }
-.pay-opt { border:2px solid #E3EAF5; border-radius:10px; padding:12px 8px; text-align:center; cursor:pointer; transition:all 0.2s; font-size:13px; font-weight:700; }
-.pay-opt:hover, .pay-opt.selected { border-color:var(--blue); background:#EEF4FF; color:var(--blue-dark); }
-.pay-opt .pay-icon { font-size:22px; margin-bottom:4px; }
-.submit-btn { width:100%; background:var(--blue-dark); color:white; border:none; padding:16px; border-radius:10px; font-size:16px; font-weight:700; cursor:pointer; margin-top:20px; letter-spacing:1px; transition:background 0.2s; }
-.submit-btn:hover { background:#0a3880; }
-.modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:22px; cursor:pointer; color:var(--muted); }
+.modal { background:white; padding:30px; border-radius:15px; width:90%; max-width:450px; position:relative; }
+.modal input, .modal textarea, .modal select { width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:8px; font-size:14px; }
+.confirm-btn { width:100%; background:var(--blue-dark); color:white; border:none; padding:15px; border-radius:8px; font-weight:700; cursor:pointer; margin-top:10px; }
 
-/* SUCCESS */
-.success-screen { text-align:center; padding:20px 0; }
-.success-screen .big-icon { font-size:70px; margin-bottom:16px; }
-.success-screen h2 { font-family:'Playfair Display',serif; color:var(--blue-dark); font-size:28px; margin-bottom:10px; }
-.success-screen p { color:var(--muted); font-size:15px; line-height:1.7; }
-.success-screen .order-id { background:var(--gray); border-radius:8px; padding:12px 20px; margin:16px auto; display:inline-block; font-weight:700; color:var(--blue-dark); font-size:16px; }
+.badge-sold { position:absolute; top:10px; right:10px; background:red; color:white; font-size:11px; padding:4px 8px; border-radius:4px; }
 
-/* TOAST */
-.toast { position:fixed; bottom:30px; right:30px; background:var(--blue-dark); color:white; padding:14px 24px; border-radius:8px; font-size:14px; font-weight:700; opacity:0; transform:translateY(20px); transition:all 0.3s; z-index:999; }
-.toast.show { opacity:1; transform:translateY(0); }
-
-/* CART SIDEBAR */
-.cart-sidebar { position:fixed; right:-400px; top:0; width:360px; height:100vh; background:white; box-shadow:-4px 0 30px rgba(0,0,0,0.15); z-index:400; transition:right 0.3s; display:flex; flex-direction:column; }
-.cart-sidebar.open { right:0; }
-.cart-header { padding:20px 24px; background:var(--blue-dark); color:white; display:flex; justify-content:space-between; align-items:center; }
-.cart-header h3 { font-family:'Playfair Display',serif; font-size:20px; }
-.cart-close { background:none; border:none; color:white; font-size:22px; cursor:pointer; }
-.cart-items { flex:1; overflow-y:auto; padding:16px; }
-.cart-item { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #E3EAF5; border-radius:10px; margin-bottom:10px; }
-.cart-item .emoji { font-size:32px; }
-.cart-item .ci-info { flex:1; }
-.cart-item .ci-name { font-weight:700; font-size:14px; }
-.cart-item .ci-price { font-size:13px; color:var(--blue-dark); font-weight:700; }
-.cart-item .ci-remove { background:none; border:none; color:#c62828; font-size:18px; cursor:pointer; }
-.cart-footer { padding:20px 24px; border-top:1px solid #E3EAF5; }
-.cart-total { display:flex; justify-content:space-between; font-size:18px; font-weight:700; color:var(--blue-dark); margin-bottom:16px; }
-.checkout-btn { width:100%; background:var(--blue-dark); color:white; border:none; padding:14px; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; }
-.overlay-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.3); z-index:300; }
-.overlay-bg.open { display:block; }
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  nav { padding:0 20px; }
-  nav ul { display:none; }
-  .hamburger { display:flex; }
-  .hero { padding:60px 20px; }
-  .hero h1 { font-size:32px; }
-  .cat-grid { grid-template-columns:repeat(3,1fr); }
-  .prod-grid { grid-template-columns:1fr; padding:0 20px; }
-  .why-grid { grid-template-columns:repeat(2,1fr); }
-  .categories,.products,.why,.contact,.banner { padding:50px 20px; }
-  footer { padding:40px 20px 20px; }
-  .modal { padding:24px 18px; }
-  .payment-opts { grid-template-columns:repeat(3,1fr); }
-  .back-btn { margin:20px 20px 0; }
-  .cat-page-header { padding:40px 20px; }
-}
+/* Loading Animation */
+#loader { text-align:center; padding:50px; font-size:18px; color:var(--blue); }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="logo" onclick="showPage('home')">SMD <span>Luxe</span></div>
-  <ul>
-    <li><a onclick="showPage('home')">Home</a></li>
-    <li><a onclick="showPage('shop')">Shop</a></li>
-    <li><a onclick="scrollToWhy()">Why Us</a></li>
-    <li><a onclick="scrollToContact()">Contact</a></li>
-  </ul>
-  <button class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
-  <div class="hamburger" onclick="toggleMobileMenu()">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="logo" onclick="location.reload()">SMD <span>Luxe</span></div>
+  <div style="font-size:13px">Premium Accessories</div>
 </nav>
 
-<!-- MARQUEE -->
-<div class="marquee-bar">
-  <div class="marquee-inner">
-    ✦ FREE DELIVERY ALL OVER BANGLADESH &nbsp;&nbsp;&nbsp; ✦ PREMIUM QUALITY GUARANTEED &nbsp;&nbsp;&nbsp; ✦ CASH ON DELIVERY AVAILABLE &nbsp;&nbsp;&nbsp; ✦ bKash &amp; Nagad ACCEPTED &nbsp;&nbsp;&nbsp; ✦ FREE DELIVERY ALL OVER BANGLADESH &nbsp;&nbsp;&nbsp; ✦ PREMIUM QUALITY GUARANTEED &nbsp;&nbsp;&nbsp; ✦ CASH ON DELIVERY AVAILABLE &nbsp;&nbsp;&nbsp; ✦ bKash &amp; Nagad ACCEPTED &nbsp;&nbsp;&nbsp;
-  </div>
+<div class="hero">
+  <h1>Exclusive Collection</h1>
+  <p>গুগল শিট থেকে অটোমেটিক আপডেট হওয়া লেটেস্ট প্রোডাক্টস</p>
 </div>
 
-<!-- ========== HOME PAGE ========== -->
-<div class="page active" id="page-home">
-
-  <section class="hero">
-    <h1>Style That Speaks<br><span>For the Modern Man</span></h1>
-    <p>Premium Sunglasses, Watches, Belts &amp; More — Crafted for You</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="showPage('shop')">Shop Now</button>
-      <button class="btn-outline" onclick="scrollToWhy()">Why SMD Luxe?</button>
-    </div>
-  </section>
-
-  <section class="categories">
-    <div class="section-title">Our Categories</div>
-    <div class="section-sub">Everything a stylish man needs — all in one place</div>
-    <div class="cat-grid">
-      <div class="cat-card" onclick="showCategory('sunglasses')"><div class="cat-icon">🕶️</div><div class="cat-name">Sunglasses</div></div>
-      <div class="cat-card" onclick="showCategory('watches')"><div class="cat-icon">⌚</div><div class="cat-name">Watches</div></div>
-      <div class="cat-card" onclick="showCategory('belts')"><div class="cat-icon">👜</div><div class="cat-name">Belts</div></div>
-      <div class="cat-card" onclick="showCategory('wallets')"><div class="cat-icon">💼</div><div class="cat-name">Wallets</div></div>
-      <div class="cat-card" onclick="showCategory('bracelets')"><div class="cat-icon">📿</div><div class="cat-name">Bracelets</div></div>
-    </div>
-  </section>
-
-  <section class="products">
-    <div class="section-title">Featured Products</div>
-    <div class="section-sub">Bestsellers handpicked for you</div>
-    <div class="prod-grid" id="featured-grid"></div>
-  </section>
-
-  <section class="why" id="why-section">
-    <div class="section-title">Why Choose SMD Luxe?</div>
-    <div class="section-sub">We deliver quality you can trust</div>
-    <div class="why-grid">
-      <div class="why-card"><div class="why-icon">🚚</div><div class="why-title">Free Delivery</div><div class="why-text">Free home delivery all over Bangladesh on orders above ৳999</div></div>
-      <div class="why-card"><div class="why-icon">💎</div><div class="why-title">Premium Quality</div><div class="why-text">Every product is carefully selected for the best quality</div></div>
-      <div class="why-card"><div class="why-icon">🔄</div><div class="why-title">Easy Return</div><div class="why-text">7-day easy return policy — no questions asked</div></div>
-      <div class="why-card"><div class="why-icon">💳</div><div class="why-title">Easy Payment</div><div class="why-text">bKash, Nagad, Cash on Delivery — your choice!</div></div>
-    </div>
-  </section>
-
-  <section class="banner">
-    <h2>Free Delivery All Over Bangladesh 🇧🇩</h2>
-    <p>Order above ৳999 and get FREE home delivery anywhere in BD</p>
-    <button class="btn-primary" onclick="showPage('shop')">Shop Now</button>
-  </section>
-
-  <section class="contact" id="contact-section">
-    <div class="section-title">Contact Us</div>
-    <div class="section-sub">We're always here to help you</div>
-    <div class="contact-info">
-      <div class="contact-card"><div class="icon">📱</div><div class="label">WhatsApp / Call</div><div class="value">+880 1XXXXXXXXX</div></div>
-      <div class="contact-card"><div class="icon">📘</div><div class="label">Facebook Page</div><div class="value">SMD Luxe BD</div></div>
-      <div class="contact-card"><div class="icon">📍</div><div class="label">Location</div><div class="value">Dhaka, Bangladesh</div></div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-logo">SMD Luxe</div>
-    <p>Premium Men's Accessories</p>
-    <p>By SMD Rubel Islam Khan — Dhaka, Bangladesh 🇧🇩</p>
-    <div class="footer-links">
-      <a href="#">Facebook</a>
-      <a href="#">Instagram</a>
-      <a href="#">WhatsApp</a>
-      <a href="#" onclick="scrollToContact()">Contact Us</a>
-    </div>
-    <hr class="footer-divider">
-    <p style="font-size:12px;opacity:0.5;">© 2025 SMD Luxe. All rights reserved.</p>
-  </footer>
+<div class="container">
+  <h2 class="section-title">Our Shop</h2>
+  <div id="loader">প্রোডাক্ট লোড হচ্ছে, দয়া করে অপেক্ষা করুন...</div>
+  <div class="prod-grid" id="main-grid"></div>
 </div>
 
-<!-- ========== SHOP PAGE ========== -->
-<div class="page" id="page-shop">
-  <div class="cat-page-header">
-    <h1>🛍️ All Products</h1>
-    <p>Browse our full collection of premium men's accessories</p>
-  </div>
-  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
-  <section class="products" style="padding-top:30px;">
-    <div class="prod-grid" id="shop-grid"></div>
-  </section>
-  <footer style="background:#07234A;color:#90CAF9;padding:30px 40px;text-align:center;">
-    <p style="font-size:13px;">© 2025 SMD Luxe. All rights reserved.</p>
-  </footer>
-</div>
-
-<!-- ========== CATEGORY PAGE ========== -->
-<div class="page" id="page-category">
-  <div class="cat-page-header" id="cat-header">
-    <h1 id="cat-title">Category</h1>
-    <p id="cat-sub">Browse products</p>
-  </div>
-  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
-  <section class="products" style="padding-top:30px;">
-    <div class="prod-grid" id="cat-grid"></div>
-  </section>
-  <footer style="background:#07234A;color:#90CAF9;padding:30px 40px;text-align:center;">
-    <p style="font-size:13px;">© 2025 SMD Luxe. All rights reserved.</p>
-  </footer>
-</div>
-
-<!-- CART SIDEBAR -->
-<div class="overlay-bg" id="overlayBg" onclick="toggleCart()"></div>
-<div class="cart-sidebar" id="cartSidebar">
-  <div class="cart-header">
-    <h3>🛒 Your Cart</h3>
-    <button class="cart-close" onclick="toggleCart()">✕</button>
-  </div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-footer">
-    <div class="cart-total"><span>Total</span><span id="cartTotal">৳ 0</span></div>
-    <button class="checkout-btn" onclick="checkoutFromCart()">Proceed to Checkout →</button>
-  </div>
-</div>
-
-<!-- ORDER MODAL -->
 <div class="modal-overlay" id="orderModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div id="modal-form-content">
-      <h2>Place Your Order</h2>
-      <p style="color:var(--muted);font-size:14px;">Fill in your details to complete the order</p>
-      <div class="prod-preview">
-        <div class="emoji" id="modal-emoji">🕶️</div>
-        <div class="info">
-          <div class="name" id="modal-name">Product Name</div>
-          <div class="sub" id="modal-sub">Description</div>
-        </div>
+    <button onclick="closeModal()" style="float:right; border:none; background:none; font-size:20px; cursor:pointer;">✕</button>
+    <div id="modal-form">
+      <h2 id="m-name">Product Name</h2>
+      <p id="m-sub" style="color:gray; font-size:13px; margin-bottom:15px;"></p>
+      <hr>
+      <div style="margin:15px 0; background:#f0f7ff; padding:10px; border-radius:8px;">
+        <p>Price: <span id="m-price">0</span></p>
+        <p>Delivery: ৳ 60</p>
+        <p><strong>Total: <span id="m-total">0</span></strong></p>
       </div>
+      
+      <input type="text" id="cust-name" placeholder="আপনার পুরো নাম">
+      <input type="tel" id="cust-phone" placeholder="মোবাইল নম্বর (১১ ডিজিট)">
+      <textarea id="cust-address" rows="2" placeholder="আপনার পূর্ণ ঠিকানা (বাসা নং, রোড, এলাকা, জেলা)"></textarea>
+      
+      <select id="cust-payment">
+        <option value="Cash on Delivery">Cash on Delivery</option>
+        <option value="bKash">bKash (Send Money)</option>
+        <option value="Nagad">Nagad (Send Money)</option>
+      </select>
 
-      <label>Quantity</label>
-      <div class="qty-row">
-        <button class="qty-btn" onclick="changeQty(-1)">−</button>
-        <span class="qty-val" id="qtyVal">1</span>
-        <button class="qty-btn" onclick="changeQty(1)">+</button>
-        <span style="font-size:13px;color:var(--muted);margin-left:8px;" id="unit-price-label"></span>
-      </div>
-
-      <label>Coupon Code</label>
-      <div class="coupon-row">
-        <input type="text" id="couponInput" placeholder="Enter coupon code (e.g. LUXE10)">
-        <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
-      </div>
-      <div class="coupon-msg" id="couponMsg"></div>
-
-      <div class="price-summary">
-        <div class="price-row"><span>Unit Price</span><span id="sum-unit">৳ 0</span></div>
-        <div class="price-row"><span>Quantity</span><span id="sum-qty">× 1</span></div>
-        <div class="price-row"><span>Subtotal</span><span id="sum-sub">৳ 0</span></div>
-        <div class="price-row" id="discount-row" style="display:none;color:#2e7d32;"><span>Discount</span><span id="sum-discount">- ৳ 0</span></div>
-        <div class="price-row"><span>Delivery</span><span id="sum-delivery">৳ 60</span></div>
-        <div class="price-row total"><span>Total</span><span id="sum-total">৳ 0</span></div>
-      </div>
-
-      <label>Your Name</label>
-      <input type="text" id="ord-name" placeholder="Full name">
-
-      <label>Phone Number</label>
-      <input type="tel" id="ord-phone" placeholder="+880 1XXXXXXXXX">
-
-      <label>Delivery Address</label>
-      <textarea id="ord-address" rows="2" placeholder="Full address with area, district"></textarea>
-
-      <label>Payment Method</label>
-      <div class="payment-opts">
-        <div class="pay-opt selected" onclick="selectPay(this,'bKash')" id="pay-bkash">
-          <div class="pay-icon">💳</div>bKash
-        </div>
-        <div class="pay-opt" onclick="selectPay(this,'Nagad')" id="pay-nagad">
-          <div class="pay-icon">📱</div>Nagad
-        </div>
-        <div class="pay-opt" onclick="selectPay(this,'COD')" id="pay-cod">
-          <div class="pay-icon">💵</div>Cash on Delivery
-        </div>
-      </div>
-      <div id="pay-instruction" style="margin-top:12px;background:#EEF4FF;border-radius:8px;padding:12px;font-size:13px;color:var(--blue-dark);display:none;"></div>
-
-      <button class="submit-btn" onclick="submitOrder()">✅ Confirm Order</button>
+      <button class="confirm-btn" onclick="submitOrder()">✅ কনফার্ম অর্ডার</button>
     </div>
 
-    <div id="modal-success" class="success-screen" style="display:none;">
-      <div class="big-icon">🎉</div>
-      <h2>Order Placed!</h2>
-      <div class="order-id" id="success-order-id"></div>
-      <p>Thank you for your order!<br>We will contact you on your phone within <strong>1-2 hours</strong> to confirm.</p>
-      <br>
-      <p style="font-size:13px;color:var(--muted);">For quick support:<br>📱 WhatsApp: +880 1XXXXXXXXX<br>📘 Facebook: SMD Luxe BD</p>
-      <button class="submit-btn" onclick="closeModal()" style="margin-top:20px;">Continue Shopping</button>
+    <div id="modal-success" style="display:none; text-align:center; padding:20px;">
+      <div style="font-size:60px">🎉</div>
+      <h2>অর্ডার সফল হয়েছে!</h2>
+      <p style="margin:10px 0;">অর্ডার আইডি: <strong id="res-id"></strong></p>
+      <p>আমরা খুব দ্রুত আপনার সাথে যোগাযোগ করবো। ধন্যবাদ!</p>
+      <button class="confirm-btn" onclick="closeModal()">ঠিক আছে</button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
-
 <script>
-// ============================================================
-// PRODUCT DATABASE — Google Sheet থেকে load হবে অথবা এখানে manually add করুন
-// ============================================================
-const PRODUCTS = [
-  { id:1, name:"Classic Aviator", sub:"UV400 Premium Lens", price:850, emoji:"🕶️", category:"sunglasses", badge:"NEW", stock:true },
-  { id:2, name:"Elite Chronograph", sub:"Stainless Steel Band", price:2200, emoji:"⌚", category:"watches", badge:"HOT", stock:true },
-  { id:3, name:"Premium Leather Belt", sub:"Genuine Leather, Slim Fit", price:650, emoji:"👜", category:"belts", badge:"SALE", stock:true },
-  { id:4, name:"Executive Wallet", sub:"RFID Protected, 8 Card Slots", price:480, emoji:"💼", category:"wallets", badge:"", stock:true },
-  { id:5, name:"Steel Bracelet", sub:"Adjustable, Unisex Design", price:390, emoji:"📿", category:"bracelets", badge:"NEW", stock:true },
-  { id:6, name:"Sport Wrap", sub:"Polarized, Ultra-Lightweight", price:720, emoji:"🕶️", category:"sunglasses", badge:"", stock:true },
-  { id:7, name:"Square Frame", sub:"Anti-Glare, Trendy Design", price:950, emoji:"🕶️", category:"sunglasses", badge:"NEW", stock:true },
-  { id:8, name:"Digital Smart Watch", sub:"Heart Rate + Steps Counter", price:1800, emoji:"⌚", category:"watches", badge:"HOT", stock:true },
-  { id:9, name:"Canvas Bracelet", sub:"Casual, Waterproof", price:220, emoji:"📿", category:"bracelets", badge:"", stock:false },
-];
+// ================= CONFIGURATION =================
+// আপনার Google Web App URL টি নিচের কোটেশনের ভেতরে বসান
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwx_zRCeowG_NVp092awrhJ6HdMmHMe5EqLz61Aaybk1nuR0AKQEj-M7-7a42Y-9xEj/exec"; 
 
-// COUPONS
-const COUPONS = {
-  "LUXE10": { type:"percent", value:10, label:"10% OFF" },
-  "LUXE50": { type:"flat", value:50, label:"৳50 OFF" },
-  "SMD20":  { type:"percent", value:20, label:"20% OFF" },
-};
+let ALL_PRODUCTS = [];
+let selectedProduct = null;
 
-// PAYMENT INFO
-const PAY_INFO = {
-  "bKash":  "Send payment to: 01XXXXXXXXX (Personal)\nAfter sending, save the TrxID — we'll confirm via WhatsApp.",
-  "Nagad":  "Send payment to: 01XXXXXXXXX (Personal)\nAfter sending, save the TrxID — we'll confirm via WhatsApp.",
-  "COD":    "Cash on Delivery — pay when your product arrives at your door! 🚪",
-};
+// ১. শিট থেকে প্রোডাক্ট লোড করা
+async function fetchProducts() {
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=getProducts`);
+    ALL_PRODUCTS = await response.json();
+    displayProducts(ALL_PRODUCTS);
+    document.getElementById('loader').style.display = 'none';
+  } catch (error) {
+    console.error("Error:", error);
+    document.getElementById('loader').innerText = "প্রোডাক্ট লোড করা যায়নি। লিঙ্ক চেক করুন।";
+  }
+}
 
-// STATE
-let cart = [];
-let currentProduct = null;
-let currentQty = 1;
-let currentPayment = "bKash";
-let appliedCoupon = null;
-let cartCount = 0;
-
-// ============================================================
-// RENDER
-// ============================================================
-function renderCard(p) {
-  const badgeHtml = p.stock
-    ? (p.badge ? `<span class="badge${p.badge==='SALE'?' sale':''}">${p.badge}</span>` : '')
-    : `<span class="badge soldout">SOLDOUT</span>`;
-  return `
+// ২. প্রোডাক্টগুলো ওয়েবসাইটে দেখানো
+function displayProducts(products) {
+  const grid = document.getElementById('main-grid');
+  grid.innerHTML = products.map(p => `
     <div class="prod-card">
-      <div class="prod-img">${p.emoji}${badgeHtml}</div>
+      <div class="prod-img">
+        ${p.emoji}
+        ${!p.stock ? '<span class="badge-sold">Sold Out</span>' : ''}
+      </div>
       <div class="prod-info">
-        <div class="prod-name">${p.name}</div>
-        <div class="prod-sub">${p.sub}</div>
-        <div class="prod-footer">
-          <span class="price">৳ ${p.price.toLocaleString()}</span>
-          <button class="add-btn" ${!p.stock?'disabled':''} onclick="openOrder(${p.id})">
-            ${p.stock ? 'Order Now' : 'Sold Out'}
+        <div style="font-weight:700; font-size:17px;">${p.name}</div>
+        <div style="color:gray; font-size:12px; margin-bottom:10px;">${p.sub}</div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="price">৳ ${p.price}</span>
+          <button class="add-btn" onclick="openOrder('${p.id}')" ${!p.stock ? 'disabled' : ''}>
+            ${p.stock ? 'অর্ডার করুন' : 'স্টক আউট'}
           </button>
         </div>
       </div>
-    </div>`;
+    </div>
+  `).join('');
 }
 
-function renderGrid(containerId, items) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  el.innerHTML = items.length ? items.map(renderCard).join('') : '<p style="text-align:center;color:var(--muted);padding:40px;">No products found.</p>';
-}
-
-function initGrids() {
-  renderGrid('featured-grid', PRODUCTS.slice(0,6));
-  renderGrid('shop-grid', PRODUCTS);
-}
-
-// ============================================================
-// PAGES
-// ============================================================
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  window.scrollTo(0,0);
-  if (name === 'shop') renderGrid('shop-grid', PRODUCTS);
-}
-
-function showCategory(cat) {
-  const info = {
-    sunglasses: { title:"🕶️ Sunglasses", sub:"Premium eyewear for every occasion" },
-    watches:    { title:"⌚ Watches", sub:"Timepieces that define your style" },
-    belts:      { title:"👜 Belts", sub:"Genuine leather belts for every outfit" },
-    wallets:    { title:"💼 Wallets", sub:"Slim, smart wallets for the modern man" },
-    bracelets:  { title:"📿 Bracelets", sub:"Stylish accessories to complete your look" },
-  };
-  const d = info[cat] || { title: cat, sub: "" };
-  document.getElementById('cat-title').textContent = d.title;
-  document.getElementById('cat-sub').textContent = d.sub;
-  const filtered = PRODUCTS.filter(p => p.category === cat);
-  renderGrid('cat-grid', filtered);
-  showPage('category');
-}
-
-function scrollToWhy() {
-  showPage('home');
-  setTimeout(() => document.getElementById('why-section').scrollIntoView({behavior:'smooth'}), 100);
-}
-function scrollToContact() {
-  showPage('home');
-  setTimeout(() => document.getElementById('contact-section').scrollIntoView({behavior:'smooth'}), 100);
-}
-
-// ============================================================
-// ORDER MODAL
-// ============================================================
+// ৩. অর্ডার ফর্ম ওপেন করা
 function openOrder(id) {
-  const p = PRODUCTS.find(x => x.id === id);
-  if (!p) return;
-  currentProduct = p;
-  currentQty = 1;
-  appliedCoupon = null;
-  currentPayment = "bKash";
-
-  document.getElementById('modal-emoji').textContent = p.emoji;
-  document.getElementById('modal-name').textContent = p.name;
-  document.getElementById('modal-sub').textContent = p.sub;
-  document.getElementById('qtyVal').textContent = 1;
-  document.getElementById('couponInput').value = '';
-  document.getElementById('couponMsg').textContent = '';
-  document.getElementById('couponMsg').className = 'coupon-msg';
-  document.getElementById('discount-row').style.display = 'none';
-  document.getElementById('ord-name').value = '';
-  document.getElementById('ord-phone').value = '';
-  document.getElementById('ord-address').value = '';
-
-  document.querySelectorAll('.pay-opt').forEach(el => el.classList.remove('selected'));
-  document.getElementById('pay-bkash').classList.add('selected');
-  updatePayInstruction("bKash");
-  updatePriceSummary();
-
-  document.getElementById('modal-form-content').style.display = 'block';
+  selectedProduct = ALL_PRODUCTS.find(p => p.id == id);
+  document.getElementById('m-name').innerText = selectedProduct.name;
+  document.getElementById('m-sub').innerText = selectedProduct.sub;
+  document.getElementById('m-price').innerText = "৳ " + selectedProduct.price;
+  document.getElementById('m-total').innerText = "৳ " + (selectedProduct.price + 60);
+  
+  document.getElementById('modal-form').style.display = 'block';
   document.getElementById('modal-success').style.display = 'none';
   document.getElementById('orderModal').classList.add('open');
 }
 
-function closeModal() {
-  document.getElementById('orderModal').classList.remove('open');
-}
+function closeModal() { document.getElementById('orderModal').classList.remove('open'); }
 
-function changeQty(d) {
-  currentQty = Math.max(1, currentQty + d);
-  document.getElementById('qtyVal').textContent = currentQty;
-  updatePriceSummary();
-}
+// ৪. অর্ডার শিটে পাঠানো
+async function submitOrder() {
+  const name = document.getElementById('cust-name').value.trim();
+  const phone = document.getElementById('cust-phone').value.trim();
+  const address = document.getElementById('cust-address').value.trim();
+  const payment = document.getElementById('cust-payment').value;
 
-function applyCoupon() {
-  const code = document.getElementById('couponInput').value.trim().toUpperCase();
-  const msg = document.getElementById('couponMsg');
-  if (COUPONS[code]) {
-    appliedCoupon = COUPONS[code];
-    msg.textContent = '✅ Coupon applied: ' + COUPONS[code].label;
-    msg.className = 'coupon-msg ok';
-  } else {
-    appliedCoupon = null;
-    msg.textContent = '❌ Invalid coupon code';
-    msg.className = 'coupon-msg err';
-  }
-  updatePriceSummary();
-}
+  if(!name || !phone || !address) return alert("দয়া করে নাম, ফোন এবং পূর্ণ ঠিকানা দিন।");
+  if(phone.length < 11) return alert("সঠিক মোবাইল নম্বর দিন।");
 
-function updatePriceSummary() {
-  if (!currentProduct) return;
-  const unit = currentProduct.price;
-  const sub = unit * currentQty;
-  let discount = 0;
-  if (appliedCoupon) {
-    discount = appliedCoupon.type === 'percent'
-      ? Math.round(sub * appliedCoupon.value / 100)
-      : appliedCoupon.value;
-    document.getElementById('discount-row').style.display = 'flex';
-    document.getElementById('sum-discount').textContent = '- ৳ ' + discount.toLocaleString();
-  } else {
-    document.getElementById('discount-row').style.display = 'none';
-  }
-  const afterDiscount = sub - discount;
-  const delivery = afterDiscount >= 999 ? 0 : 60;
-  const total = afterDiscount + delivery;
+  const btn = document.querySelector('.confirm-btn');
+  btn.innerText = "অর্ডার প্রসেস হচ্ছে...";
+  btn.disabled = true;
 
-  document.getElementById('sum-unit').textContent = '৳ ' + unit.toLocaleString();
-  document.getElementById('sum-qty').textContent = '× ' + currentQty;
-  document.getElementById('sum-sub').textContent = '৳ ' + sub.toLocaleString();
-  document.getElementById('sum-delivery').textContent = delivery === 0 ? 'FREE 🎉' : '৳ 60';
-  document.getElementById('sum-total').textContent = '৳ ' + total.toLocaleString();
-}
+  const orderData = {
+    orderId: "ORD-" + Math.floor(Math.random() * 900000 + 100000),
+    name, phone, address, payment,
+    product: selectedProduct.name,
+    qty: 1,
+    total: selectedProduct.price + 60
+  };
 
-function selectPay(el, method) {
-  document.querySelectorAll('.pay-opt').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  currentPayment = method;
-  updatePayInstruction(method);
-}
-
-function updatePayInstruction(method) {
-  const div = document.getElementById('pay-instruction');
-  div.style.display = 'block';
-  div.textContent = PAY_INFO[method];
-  div.style.whiteSpace = 'pre-line';
-}
-
-function submitOrder() {
-  const name = document.getElementById('ord-name').value.trim();
-  const phone = document.getElementById('ord-phone').value.trim();
-  const address = document.getElementById('ord-address').value.trim();
-
-  if (!name || !phone || !address) {
-    showToast('⚠️ Please fill in all fields!');
-    return;
-  }
-  if (phone.length < 11) {
-    showToast('⚠️ Please enter a valid phone number!');
-    return;
-  }
-
-  const unit = currentProduct.price;
-  const sub = unit * currentQty;
-  let discount = 0;
-  if (appliedCoupon) {
-    discount = appliedCoupon.type === 'percent'
-      ? Math.round(sub * appliedCoupon.value / 100)
-      : appliedCoupon.value;
-  }
-  const afterDiscount = sub - discount;
-  const delivery = afterDiscount >= 999 ? 0 : 60;
-  const total = afterDiscount + delivery;
-  const orderId = 'SMD-' + Date.now().toString().slice(-6);
-
-  // Google Sheet এ পাঠানো (আপনার Sheet URL এখানে বসাবেন)
-  const SHEET_URL = "YOUR_GOOGLE_SHEET_SCRIPT_URL";
-  if (SHEET_URL !== "YOUR_GOOGLE_SHEET_SCRIPT_URL") {
-    const params = new URLSearchParams({
-      orderId, name, phone, address,
-      product: currentProduct.name,
-      qty: currentQty,
-      payment: currentPayment,
-      coupon: appliedCoupon ? document.getElementById('couponInput').value : '',
-      total,
-      time: new Date().toLocaleString('bn-BD')
-    });
-    fetch(SHEET_URL + '?' + params.toString()).catch(() => {});
-  }
-
-  document.getElementById('success-order-id').textContent = '📦 Order ID: ' + orderId;
-  document.getElementById('modal-form-content').style.display = 'none';
-  document.getElementById('modal-success').style.display = 'block';
-  showToast('🎉 Order placed successfully!');
-}
-
-// ============================================================
-// CART
-// ============================================================
-function toggleCart() {
-  document.getElementById('cartSidebar').classList.toggle('open');
-  document.getElementById('overlayBg').classList.toggle('open');
-}
-
-function addToCart(id) {
-  const p = PRODUCTS.find(x => x.id === id);
-  if (!p) return;
-  const existing = cart.find(x => x.id === id);
-  if (existing) existing.qty++;
-  else cart.push({ ...p, qty: 1 });
-  updateCartUI();
-  showToast('✅ ' + p.name + ' added to cart!');
-}
-
-function removeFromCart(id) {
-  cart = cart.filter(x => x.id !== id);
-  updateCartUI();
-}
-
-function updateCartUI() {
-  const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
-  const count = cart.reduce((s, x) => s + x.qty, 0);
-  document.getElementById('cartCount').textContent = count;
-  document.getElementById('cartTotal').textContent = '৳ ' + total.toLocaleString();
-  const items = document.getElementById('cartItems');
-  if (cart.length === 0) {
-    items.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px;">Your cart is empty 😊</p>';
-  } else {
-    items.innerHTML = cart.map(x => `
-      <div class="cart-item">
-        <div class="emoji">${x.emoji}</div>
-        <div class="ci-info">
-          <div class="ci-name">${x.name}</div>
-          <div class="ci-price">৳ ${(x.price * x.qty).toLocaleString()} (×${x.qty})</div>
-        </div>
-        <button class="ci-remove" onclick="removeFromCart(${x.id})">✕</button>
-      </div>`).join('');
+  try {
+    const query = new URLSearchParams(orderData).toString();
+    const res = await fetch(`${SCRIPT_URL}?${query}`);
+    const data = await res.json();
+    
+    if(data.success) {
+      document.getElementById('modal-form').style.display = 'none';
+      document.getElementById('modal-success').style.display = 'block';
+      document.getElementById('res-id').innerText = orderData.orderId;
+    }
+  } catch (error) {
+    alert("অর্ডার করার সময় সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+  } finally {
+    btn.innerText = "✅ কনফার্ম অর্ডার";
+    btn.disabled = false;
   }
 }
 
-function checkoutFromCart() {
-  if (cart.length === 0) { showToast('⚠️ Cart is empty!'); return; }
-  toggleCart();
-  openOrder(cart[0].id);
-}
-
-// ============================================================
-// TOAST
-// ============================================================
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-function toggleMobileMenu() {
-  showToast('📱 Use the buttons to navigate!');
-}
-
-// INIT
-initGrids();
-updateCartUI();
+// পেজ লোড হলে রান হবে
+window.onload = fetchProducts;
 </script>
+
 </body>
 </html>
